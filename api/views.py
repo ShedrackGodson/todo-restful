@@ -34,3 +34,11 @@ def task_detail(request, pk):
         return Response("Object Not Available", status=404)
     serializer = TaskSerializer(task, many=False) # Serializing our object to get Json Object
     return Response(serializer.data)
+
+
+@api_view(['POST'])
+def task_create(request):
+    serializer = TaskSerializer(data = request.data)
+    if serializer.is_valid():
+        serializer.save()
+    return Response(serializer.data)
