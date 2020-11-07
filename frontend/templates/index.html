@@ -9,8 +9,8 @@
 
 	<style type="text/css">
 		body{
-		  background: rgb(54,217,182);
-		  background: linear-gradient(90deg, rgba(54,217,182,1) 0%, rgba(32,152,126,1) 43%, rgba(0,212,255,1) 100%);
+		  background: rgb(114, 217, 54);
+		  background: linear-gradient(90deg, rgb(146, 212, 107) 0%, rgb(103, 167, 66) 43%, #66c031 100%);
 		}
 
 
@@ -45,7 +45,7 @@
 		}
 
 		#submit{
-		  background-color: #36d9b6;
+		  background-color: #66c031;
 		  border-radius: 0;
 		  border:0;
 		  color: #fff;
@@ -138,7 +138,7 @@
 
 
 
-			var url = 'http://127.0.0.1:8000/api/task-list/'
+			var url = 'http://localhost:8000/api/task-list/'
 
 			fetch(url)
 			.then((resp) => resp.json())
@@ -171,7 +171,7 @@
 								<button class="btn btn-sm btn-outline-info edit">Edit </button>
 							</div>
 							<div style="flex:1">
-								<button class="btn btn-sm btn-outline-dark delete">-</button>
+								<button class="btn btn-sm btn-outline-danger delete">x</button>
 							</div>
 						</div>
 					`
@@ -228,9 +228,9 @@
 		form.addEventListener('submit', function(e){
 			e.preventDefault()
 			console.log('Form submitted')
-			var url = 'http://127.0.0.1:8000/api/task-create/'
+			var url = 'http://localhost:8000/api/task-create/'
 			if (activeItem != null){
-				var url = `http://127.0.0.1:8000/api/task-update/${activeItem.id}/`
+				var url = `http://localhost:8000/api/task-update/${activeItem.id}/`
 				activeItem = null
 			}
 
@@ -263,7 +263,7 @@
 
 		function deleteItem(item){
 			console.log('Delete clicked')
-			fetch(`http://127.0.0.1:8000/api/task-delete/${item.id}/`, {
+			fetch(`http://localhost:8000/api/task-delete/${item.id}/`, {
 				method:'DELETE', 
 				headers:{
 					'Content-type':'application/json',
@@ -278,7 +278,7 @@
 			console.log('Strike clicked')
 
 			item.completed = !item.completed
-			fetch(`http://127.0.0.1:8000/api/task-update/${item.id}/`, {
+			fetch(`http://localhost:8000/api/task-update/${item.id}/`, {
 				method:'POST', 
 				headers:{
 					'Content-type':'application/json',
