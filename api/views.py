@@ -42,3 +42,14 @@ def task_create(request):
     if serializer.is_valid():
         serializer.save()
     return Response(serializer.data)
+
+
+@api_view(['POST'])
+def task_update(request, pk):
+    task = Task.objects.get(pk=pk)
+    serializer = TaskSerializer(instance=task, data=request.data)
+    
+    if serializer.is_valid():
+        serializer.save()
+    return Response(serializer.data)
+
