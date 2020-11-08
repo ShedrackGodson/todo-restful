@@ -158,6 +158,15 @@
 					`
 					wrapper.innerHTML += item;
 				}
+
+				for(var i in list){
+					var editBtn = document.getElementsByClassName('edit')[i]
+					editBtn.addEventListener('click', (function(item){
+						return function(){
+							editItem(item)
+						}
+					})(list[i]))
+				}
 				
 				// for (var i in list){
 
@@ -240,6 +249,10 @@
 			e.preventDefault()
 			console.log("Form Submitted.")
 			var url = "{% url 'task-create' %}"
+			if(activeItem  != null){
+				url = `http://localhost:8000/api/task-update/${activeItem.id}/`
+				activeItem = null;
+			}
 			var title = document.getElementById('title').value
 			fetch(
 				url,
@@ -258,6 +271,12 @@
 			})
 
 		})
+
+		function editTask(item){
+			console.log("Item Clicked: ", item)
+			activeItem = item
+			document.getElementById("title").value = activeItem.title
+		}
 
 
 
