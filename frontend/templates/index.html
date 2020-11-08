@@ -135,7 +135,8 @@
 		function buildList(){
 			var wrapper = document.getElementById('list-wrapper')
 			var url = "{% url 'task-list' %}"
-			wrapper.innerHTML = ''
+			// wrapper.innerHTML = ''
+
 			fetch(url)
 			.then((resp) => resp.json())
 			.then(function(data){
@@ -143,6 +144,13 @@
 
 				var list = data
 				for(var i in list){
+
+					try{
+						document.getElementById(`data-row-${i}`).remove()
+					} catch(err){
+
+					}
+					
 					var title = `<span class="title">${list[i].title}</span>`
 					if(list[i].completed == true){
 						var title = `<strike class="title">${list[i].title}</strike>`
@@ -162,6 +170,14 @@
 					`
 					wrapper.innerHTML += item;
 				}
+
+				if(list_snapshot.length  > list.length){
+					for(var i = list.length; i < list_snapshot.length; i++){
+						document.getElementById(`data-row-${i}`).remove()
+					}
+				}
+
+				list_snapshot = list
 
 				for(var i in list){
 					var editBtn = document.getElementsByClassName('edit')[i]
