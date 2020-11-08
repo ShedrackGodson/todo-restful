@@ -78,7 +78,7 @@
 							<input id="title" class="form-control" type="text" name="title" placeholder="Add task">
 						</div>
 						<div style="flex: 1">
-							<input id="submit" class="btn" type="submit" >
+							<input id="submit" class="btn" type="submit" required>
 						</div>
 					</div>
 				</form>
@@ -134,7 +134,7 @@
 
 		function buildList(){
 			var wrapper = document.getElementById('list-wrapper')
-			var url = 'http://localhost:8000/api/task-list/'
+			var url = "{% url 'task-list' %}"
 
 			fetch(url)
 			.then((resp) => resp.json())
@@ -239,6 +239,22 @@
 		form.addEventListener("submit",function(e){
 			e.preventDefault()
 			console.log("Form Submitted.")
+			var url = "{% url 'task-create' %}"
+			var title = document.getElementById('title').value
+			fetch(
+				url,
+				{
+					method: "POST",
+					headers: {
+						'Content-type': 'application/json',
+					},
+					body: JSON.stringify({'title': title})
+				}
+			)
+			.then(function(response){
+				buildList()
+			})
+
 		})
 
 
