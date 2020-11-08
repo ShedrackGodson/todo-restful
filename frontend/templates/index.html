@@ -135,7 +135,7 @@
 		function buildList(){
 			var wrapper = document.getElementById('list-wrapper')
 			var url = "{% url 'task-list' %}"
-
+			wrapper.innerHTML = ''
 			fetch(url)
 			.then((resp) => resp.json())
 			.then(function(data){
@@ -247,12 +247,14 @@
 					method: "POST",
 					headers: {
 						'Content-type': 'application/json',
+						'X-CSRFToken': csrftoken
 					},
 					body: JSON.stringify({'title': title})
 				}
 			)
 			.then(function(response){
 				buildList()
+				document.getElementById('form').reset()
 			})
 
 		})
